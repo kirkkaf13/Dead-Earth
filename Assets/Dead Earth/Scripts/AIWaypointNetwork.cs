@@ -5,7 +5,8 @@ using UnityEngine;
 public enum PathDisplayMode { None, Connections, Navigation }
 public class AIWaypointNetwork : MonoBehaviour
 {
+    [HideInInspector]
     public PathDisplayMode PathDisplayMode = PathDisplayMode.None;
     public List<Transform> Waypoints = new List<Transform>();
-   
+
 }

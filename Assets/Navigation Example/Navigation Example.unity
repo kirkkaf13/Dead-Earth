@@ -215,7 +215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0196f3cfd178d304dad9a648087338b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PathDisplayMode: 0
+  PathDisplayMode: 2
   Waypoints:
   - {fileID: 755234470}
   - {fileID: 964371310}
@@ -2033,7 +2033,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0196f3cfd178d304dad9a648087338b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PathDisplayMode: 0
+  PathDisplayMode: 2
   Waypoints:
   - {fileID: 755234470}
   - {fileID: 567372971}

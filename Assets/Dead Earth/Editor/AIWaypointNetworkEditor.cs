@@ -2,13 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using UnityEngine.AI;
 
 [CustomEditor(typeof(AIWaypointNetwork))]
 public class AIWaypointNetworkEditor : Editor
 {
+
+    public override void OnInspectorGUI()
+    {
+        AIWaypointNetwork network = target as AIWaypointNetwork;
+        network.PathDisplayMode = (PathDisplayMode)EditorGUILayout.EnumPopup("Display Mode", network.PathDisplayMode);
+        DrawDefaultInspector();
+        SceneView.RepaintAll();
+    }
+
     void OnSceneGUI()
     {
 
+        // Display waypoint names
         GUIStyle style = new GUIStyle();
         style.normal.textColor = Color.magenta;
 
@@ -19,6 +30,7 @@ public class AIWaypointNetworkEditor : Editor
                 Handles.Label(t.position, t.name, style);
         });
 
+        // Display way point connections
         if (network.PathDisplayMode == PathDisplayMode.Connections)
         {
 
@@ -38,6 +50,22 @@ public class AIWaypointNetworkEditor : Editor
             }
             Handles.color = Color.cyan;
             Handles.DrawPolyLine(points);
+        }
+        // Display waypoint navigation
+        else if (network.PathDisplayMode == PathDisplayMode.Navigation)
+        {
+            Handles.color = Color.cyan;
+            for (int i = 1; i < network.Waypoints.Count + 1; i++)
+            {
+                int index = i != network.Waypoints.Count ? i : 0;
+                if (network.Waypoints[index] != null)
+                {
+                    NavMeshPath path = new NavMeshPath();
+                    NavMesh.CalculatePath(network.Waypoints[index].position, network.Waypoints[i - 1].position, NavMesh.AllAreas, path);
+                    if (path.status == NavMeshPathStatus.PathComplete)
+                        Handles.DrawAAPolyLine(path.corners);
+                }
+            }
         }
     }
 }
