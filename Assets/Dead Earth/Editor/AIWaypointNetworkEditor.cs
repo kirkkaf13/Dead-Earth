@@ -55,13 +55,14 @@ public class AIWaypointNetworkEditor : Editor
         else if (network.PathDisplayMode == PathDisplayMode.Navigation)
         {
             Handles.color = Color.cyan;
-            for (int i = 1; i < network.Waypoints.Count + 1; i++)
+            for (int i = 0; i <= network.Waypoints.Count; i++)
             {
                 int index = i != network.Waypoints.Count ? i : 0;
+                int nextIndex = index == network.Waypoints.Count - 1 ? 0 : index + 1;
                 if (network.Waypoints[index] != null)
                 {
                     NavMeshPath path = new NavMeshPath();
-                    NavMesh.CalculatePath(network.Waypoints[index].position, network.Waypoints[i - 1].position, NavMesh.AllAreas, path);
+                    NavMesh.CalculatePath(network.Waypoints[index].position, network.Waypoints[nextIndex].position, NavMesh.AllAreas, path);
                     if (path.status == NavMeshPathStatus.PathComplete)
                         Handles.DrawAAPolyLine(path.corners);
                 }
