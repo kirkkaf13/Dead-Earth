@@ -26,8 +26,10 @@ public class NavAgent : MonoBehaviour
     void Update()
     {
 
-        if (!_agent.hasPath && !_agent.pathPending)
+        if (!_agent.hasPath && !_agent.pathPending || _agent.pathStatus != NavMeshPathStatus.PathComplete)
             SetNextDestination(true);
+        else if (_agent.isPathStale)
+            SetNextDestination(false);
 
     }
 
